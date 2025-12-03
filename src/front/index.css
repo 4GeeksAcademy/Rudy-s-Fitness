@@ -1,0 +1,205 @@
+/* Compact navbar after login */
+.navbar-btn-col-auth {
+  width: 140px !important;
+}
+.navbar-btn-col-auth .nav-button {
+  font-size: 0.75rem !important;
+  padding: 0.25rem 0.5rem !important;
+  margin-bottom: 0.25rem;
+}
+/* Registration and form container full background */
+.registration-container,
+.form-main-container,
+.form-card,
+.form-outer {
+  background: #181b1e !important;
+  color: #fff !important;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px 0 #0002;
+  padding: 2.5rem 2rem 2rem 2rem;
+  margin: 2rem auto;
+  max-width: 600px;
+  width: 100%;
+}
+
+/* Center the registration title and ensure it's visible */
+.registration-container h1,
+.form-main-container h1,
+.form-card h1,
+.form-outer h1 {
+  color: #fff !important;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Remove background from body to keep contrast */
+body {
+  background: #fff;
+}
+/* General background and text color for forms */
+form,
+.form-container,
+.form-group,
+input,
+select,
+textarea {
+  background: #181b1e !important;
+  color: #fff !important;
+  border-radius: 8px;
+  border: 1px solid #333;
+}
+
+label,
+.form-label,
+.form-title,
+.form-header {
+  color: #fff !important;
+  font-weight: 600;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #bbb !important;
+  opacity: 1;
+}
+
+button,
+.btn,
+.form-button {
+  background: #000 !important;
+  color: #fff !important;
+  border: 1px solid #eae6de;
+  border-radius: 8px;
+  font-weight: 700;
+  transition: background 0.2s, color 0.2s;
+}
+button:hover,
+.btn:hover,
+.form-button:hover {
+  background: #eae6de !important;
+  color: #000 !important;
+}
+
+.form-error,
+.error-message {
+  color: #ff6b6b !important;
+  background: transparent;
+  font-weight: 600;
+}
+
+.form-success,
+.success-message {
+  color: #4caf50 !important;
+  background: transparent;
+  font-weight: 600;
+}
+
+/* For better contrast on headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #fff !important;
+}
+
+/* Card info and special fields */
+.card-info,
+.special-field {
+  background: #222 !important;
+  color: #fff !important;
+}
+
+/* Accent border for focus */
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #eae6de !important;
+  outline: none;
+  box-shadow: 0 0 0 2px #eae6de44;
+}
+/* Navbar Styles */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.navbar-brand {
+  transition: opacity 0.3s ease;
+}
+
+.navbar-brand:hover {
+  opacity: 0.9;
+}
+
+.navbar-brand img {
+  transition: transform 0.3s ease;
+}
+
+.navbar .nav-button {
+  font-weight: 600;
+  font-size: 1rem;
+  border: 2px solid white;
+  color: white;
+  background-color: transparent;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3),
+    0 0 20px rgba(255, 255, 255, 0.2);
+  text-align: center;
+}
+
+.navbar .nav-button:hover {
+  background-color: white;
+  color: black;
+  border-color: white;
+  transform: translateX(-5px);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.6),
+    0 0 30px rgba(255, 255, 255, 0.4), 0 4px 15px rgba(255, 255, 255, 0.3);
+}
+.nav-link {
+  color: rgba(255, 255, 255, 0.85) !important;
+  transition: color 0.3s ease;
+  font-weight: 500;
+}
+
+.nav-link:hover {
+  color: #fff !important;
+}
+
+.btn-outline-light {
+  border-width: 2px;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-light:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+}
+
+.btn-success {
+  transition: all 0.3s ease;
+}
+
+.btn-success:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+}
+
+/* General Styles */
+.container {
+  text-align: center;
+  padding: 20px;
+}
+
+.header {
+  font-size: 2em;
+  color: #333;
+}
+
+.image {
+  width: 100%;
+  max-width: 600px;
+}
