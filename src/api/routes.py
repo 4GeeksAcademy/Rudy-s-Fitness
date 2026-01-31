@@ -1,238 +1,206 @@
 """
-This module takes care of starting the API Server, Loading the DB and Adding the endpoints
+API endpoints for authentication, membership management, workouts/routines, progress tracking
+and billing placeholders to back the front-end flows.
 """
-from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Customer, Event
+from flask import request, jsonify, Blueprint
 from werkzeug.security import generate_password_hash, check_password_hash
-from api.utils import generate_sitemap, APIException
-from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_token
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+from api.models import db, User, Workout, WorkoutExercise, Progress, BillingRecord
+from api.utils import APIException
+from flask_cors import CORS
 
 api = Blueprint('api', __name__)
+
+# Allow CORS requests to this API
+CORS(api)
 
 
 @api.route('/hello', methods=['POST', 'GET'])
 def handle_hello():
-
     response_body = {
         "message": "Hello! I'm a message that came from the backend, check the network tab on the google inspector and you will see the GET request"
     }
-
     return jsonify(response_body), 200
 
 
-@api.route("/user-login", methods=["POST"])
+# ---------- AUTH ----------
+@api.route('/register', methods=['POST'])
+def register_user():
+    data = request.get_json() or {}
+    email = data.get('email')
+    password = data.get('password')
+    full_name = data.get('full_name')
+    user_type = data.get('user_type', 'customer')
+    membership_level = data.get('membership_level', 'basic')
+
+    if not email or not password:
+        raise APIException("Email and password are required", status_code=400)
+
+    if User.query.filter_by(email=email).first():
+        raise APIException("User already exists", status_code=409)
+
+    hashed = generate_password_hash(password)
+    user = User(email=email, password=hashed, full_name=full_name,
+                user_type=user_type, membership_level=membership_level, is_active=True)
+    db.session.add(user)
+    db.session.commit()
+
+    token = create_access_token(identity=user.id)
+    return jsonify({"token": token, "user": user.serialize()}), 201
+
+
+@api.route('/login', methods=['POST'])
 def login_user():
+    data = request.get_json() or {}
+    email = data.get('email')
+    password = data.get('password')
 
-    email = request.json.get("email", None)
-    password = request.json.get("password", None)
-    if email is None or password is None:
-        return jsonify({"msg": "Bad email or password"}), 400
-    user = User.query.filter_by(email=email).one_or_none()
-    if user is None:
-        return jsonify({"msg": "no user"}), 404
-    # Support both hashed and legacy plaintext passwords
-    try:
-        verified = check_password_hash(user.password, password)
-    except Exception:
-        verified = (user.password == password)
-    if not verified:
-        return jsonify({"msg": "bad password"}), 401
-    access_token = create_access_token(identity=user.id)
+    if not email or not password:
+        raise APIException("Email and password are required", status_code=400)
 
-    return jsonify(access_token=access_token)
+    user = User.query.filter_by(email=email).first()
+    if not user or not check_password_hash(user.password, password):
+        raise APIException("Invalid credentials", status_code=401)
+
+    token = create_access_token(identity=user.id)
+    return jsonify({"token": token, "user": user.serialize()}), 200
 
 
-@api.route("/user-current", methods=["GET"])
+@api.route('/me', methods=['GET'])
 @jwt_required()
-def user_current():
-    # Add parentheses to call the function
-    user = User.query.get(get_jwt_identity())
-    if user is None:
-        return jsonify({"msg": "user not found"}), 404
+def get_current_user():
+    user_id = get_jwt_identity()
+    user = User.query.get(user_id)
+    if not user:
+        raise APIException("User not found", status_code=404)
     return jsonify(user.serialize()), 200
 
 
-@api.route("/customer-current", methods=["GET"])
+# ---------- MEMBERSHIP ----------
+@api.route('/membership', methods=['PUT'])
 @jwt_required()
-def customer_current():
-    customer = Customer.query.get(get_jwt_identity())
-    if customer is None:
-        return jsonify({"msg": "customer not found"}), 404
-    return jsonify(customer.serialize()), 200
+def update_membership():
+    user_id = get_jwt_identity()
+    user = User.query.get(user_id)
+    if not user:
+        raise APIException("User not found", status_code=404)
 
+    data = request.get_json() or {}
+    level = data.get('membership_level')
+    if level not in ['basic', 'premium', 'vip']:
+        raise APIException("Invalid membership level", status_code=400)
 
-@api.route("/customer-login", methods=["POST"])
-def login_customer():
-    email = request.json.get("email", None)
-    password = request.json.get("password", None)
-    if email is None or password is None:
-        return jsonify({"msg": "Bad email or password"}), 400
-    customer = Customer.query.filter_by(email=email).one_or_none()
-    if customer is None:
-        return jsonify({"msg": "no customer"}), 404
-    # Support both hashed and legacy plaintext passwords
-    try:
-        verified = check_password_hash(customer.password, password)
-    except Exception:
-        verified = (customer.password == password)
-    if not verified:
-        return jsonify({"msg": "bad password"}), 401
-    access_token = create_access_token(identity=customer.id)
-
-    return jsonify(access_token=access_token)
-
-
-@api.route("/customer-signup", methods=["POST"])
-def customer_signup():
-    name = request.json.get("name", None)
-    email = request.json.get("email", None)
-    password = request.json.get("password", None)
-    dob = request.json.get("dob", None)
-    address = request.json.get("address", None)
-
-    if name is None or email is None or password is None or dob is None or address is None:
-        return jsonify({"msg": "Some fields are missing"}), 400
-    customer = Customer.query.filter_by(email=email).one_or_none()
-    if customer:
-        return jsonify({"msg": "customer already exsist"}), 404
-    # Store hashed password
-    hashed = generate_password_hash(password)
-    customer = Customer(name=name, email=email,
-                        password=hashed, dob=dob, address=address)
-    db.session.add(customer)
+    user.membership_level = level
     db.session.commit()
-    db.session.refresh(customer)
-    response_body = {"msg": "customer account successfully created",
-                     "customer": customer.serialize()}
-    return jsonify(response_body), 201
+    return jsonify({"user": user.serialize()}), 200
 
 
-@api.route("/user-signup", methods=["POST"])
-def user_signup():
-    email = request.json.get("email", None)
-    password = request.json.get("password", None)
-    is_active = True
-    if email is None or password is None:
-        return jsonify({"msg": "Email and password are required"}), 400
-    existing = User.query.filter_by(email=email).one_or_none()
-    if existing:
-        return jsonify({"msg": "user already exists"}), 409
-    hashed = generate_password_hash(password)
-    user = User(email=email, password=hashed, is_active=is_active)
-    db.session.add(user)
-    db.session.commit()
-    db.session.refresh(user)
-    return jsonify({"msg": "coach account created", "user": user.serialize()}), 201
-
-
-@api.route("/events-all", methods={"GET"})
-def events_all():
-    events = Event.query.all()
-    serialized_events = [ev.serialize() for ev in events]
-    return jsonify({"events": serialized_events}), 200
-
-
-@api.route("/create-event", methods=["POST"])
+# ---------- WORKOUTS / ROUTINES ----------
+@api.route('/workouts', methods=['GET', 'POST'])
 @jwt_required()
-def create_event():
-    # Only allow authenticated coaches (User tokens) to create events
-    identity = get_jwt_identity()
-    if User.query.get(identity) is None:
-        return jsonify({"msg": "forbidden"}), 403
-    time = request.json.get("time", None)
-    date = request.json.get("date", None)
-    location = request.json.get("location", None)
-    capacity = request.json.get("capacity", None)
-    photo = request.json.get("photo", None)
-    instructor = request.json.get("instructor", None)
+def workouts():
+    user_id = get_jwt_identity()
+    current_user = User.query.get(user_id)
+    if not current_user:
+        raise APIException("User not found", status_code=404)
 
-    if time is None or date is None or location is None or capacity is None or photo is None or instructor is None:
-        return jsonify({"msg": "Some fields are missing"}), 400
+    if request.method == 'GET':
+        # Coaches see created workouts, customers see assigned workouts
+        if current_user.user_type == 'coach':
+            items = Workout.query.filter_by(created_by=user_id).order_by(
+                Workout.created_at.desc()).all()
+        else:
+            items = Workout.query.filter((Workout.assigned_to == user_id) | (
+                Workout.created_by == user_id)).order_by(Workout.created_at.desc()).all()
+        return jsonify([w.serialize() for w in items]), 200
 
-    event = Event(time=time, date=date, location=location,
-                  capacity=capacity, photo=photo, instructor=instructor)
-    db.session.add(event)
+    # POST create workout (coach by default, but allow user to self-create)
+    data = request.get_json() or {}
+    title = data.get('title')
+    if not title:
+        raise APIException("Title is required", status_code=400)
+
+    workout = Workout(
+        title=title,
+        description=data.get('description'),
+        membership_level=data.get(
+            'membership_level', current_user.membership_level),
+        created_by=user_id,
+        assigned_to=data.get('assigned_to')
+    )
+    db.session.add(workout)
+
+    exercises = data.get('exercises', [])
+    for ex in exercises:
+        w_ex = WorkoutExercise(
+            workout=workout,
+            name=ex.get('name', 'Exercise'),
+            wger_exercise_id=ex.get('wger_exercise_id'),
+            sets=ex.get('sets'),
+            reps=ex.get('reps'),
+            weight=ex.get('weight'),
+            notes=ex.get('notes')
+        )
+        db.session.add(w_ex)
+
     db.session.commit()
-    db.session.refresh(event)
-    response_body = {"msg": "Event successfully created",
-                     "event": event.serialize()}
-    return jsonify(response_body), 201
+    return jsonify(workout.serialize()), 201
 
 
-@api.route("/delete-event/<int:event_id>", methods={"DELETE"})
+@api.route('/workouts/<int:workout_id>', methods=['GET'])
 @jwt_required()
-def delete_event(event_id):
-    identity = get_jwt_identity()
-    if User.query.get(identity) is None:
-        return jsonify({"msg": "forbidden"}), 403
-
-    event = Event.query.get(event_id)
-    if event is None:
-        return jsonify({"msg": "event not found"}), 404
-    db.session.delete(event)
-    db.session.commit()
-    return jsonify({"msg": "event successfully deleted"}), 200
+def get_workout(workout_id):
+    user_id = get_jwt_identity()
+    workout = Workout.query.get(workout_id)
+    if not workout:
+        raise APIException("Workout not found", status_code=404)
+    # Simple permission: allow owner, assigned user, or coach creator
+    if workout.created_by != user_id and workout.assigned_to != user_id:
+        raise APIException("Not authorized", status_code=403)
+    return jsonify(workout.serialize()), 200
 
 
-@api.route("/edit-event/<int:event_id>", methods={"PUT"})
+# ---------- PROGRESS ----------
+@api.route('/progress', methods=['GET', 'POST'])
 @jwt_required()
-def edit_event(event_id):
-    identity = get_jwt_identity()
-    if User.query.get(identity) is None:
-        return jsonify({"msg": "forbidden"}), 403
+def progress():
+    user_id = get_jwt_identity()
 
-    time = request.json.get("time")
-    date = request.json.get("date")
-    location = request.json.get("location")
-    capacity = request.json.get("capacity")
-    signups = request.json.get("signups")
-    photo = request.json.get("photo")
-    instructor = request.json.get("instructor")
-    customer_id = request.json.get("customer_id")
+    if request.method == 'GET':
+        logs = Progress.query.filter_by(user_id=user_id).order_by(
+            Progress.logged_at.desc()).all()
+        return jsonify([p.serialize() for p in logs]), 200
 
-    if time is None or date is None or location is None or capacity is None or signups is None or photo is None or instructor is None or customer_id is None:
-        return jsonify({"msg": "Some fields are missing"}), 400
-
-    event = Event.query.get(event_id)
-    if event is None:
-        return jsonify({"msg": "event not found"}), 404
-    event.time = time
-    event.date = date
-    event.location = location
-    event.capacity = capacity
-    event.signups = signups
-    event.photo = photo
-    event.instructor = instructor
-    event.customer_id = customer_id
-
+    data = request.get_json() or {}
+    log = Progress(
+        user_id=user_id,
+        workout_id=data.get('workout_id'),
+        exercise_name=data.get('exercise_name'),
+        status=data.get('status', 'completed'),
+        notes=data.get('notes')
+    )
+    db.session.add(log)
     db.session.commit()
-    db.session.refresh(event)
-    response_body = {
-        "msg": "event account successfully created", "event": event.serialize()}
-    return jsonify(response_body), 201
+    return jsonify(log.serialize()), 201
 
 
-@api.route("/signup-for-event", methods=["POST"])
-def signup_for_event():
-    customer_id = request.json.get("customer_id", None)
-    event_id = request.json.get("event_id", None)
+# ---------- BILLING (placeholder) ----------
+@api.route('/billing', methods=['POST'])
+@jwt_required()
+def billing():
+    user_id = get_jwt_identity()
+    data = request.get_json() or {}
+    amount = data.get('amount')
+    if amount is None:
+        raise APIException("Amount is required", status_code=400)
 
-    if customer_id is None or event_id is None:
-        return jsonify({"msg": "Customer ID and Event ID are required"}), 400
-
-    customer = Customer.query.get(customer_id)
-    event = Event.query.get(event_id)
-
-    if not customer or not event:
-        return jsonify({"msg": "Customer or Event not found"}), 404
-
-    if event in customer.events:
-        return jsonify({"msg": "Customer already signed up for this event"}), 400
-
-    if len(event.customers) >= event.capacity:
-        return jsonify({"msg": "Event is already at full capacity"}), 400
-
-    customer.events.append(event)
+    record = BillingRecord(
+        user_id=user_id,
+        amount=amount,
+        currency=data.get('currency', 'USD'),
+        status=data.get('status', 'pending'),
+        description=data.get('description')
+    )
+    db.session.add(record)
     db.session.commit()
-
-    return jsonify({"msg": "Successfully signed up for the event"}), 200
+    return jsonify(record.serialize()), 201

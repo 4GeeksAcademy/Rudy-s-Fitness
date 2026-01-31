@@ -1,0 +1,585 @@
+/* Exercises Page Styles */
+
+.exercises-container {
+  background-color: #000;
+  color: #fff;
+  min-height: 100vh;
+}
+
+/* Hero Section */
+.exercises-hero {
+  height: 300px;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1200")
+      center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.exercises-hero-overlay {
+  text-align: center;
+}
+
+.exercises-hero-overlay h1 {
+  font-size: 3rem;
+  font-weight: 900;
+  letter-spacing: 4px;
+  margin-bottom: 10px;
+}
+
+.exercises-hero-overlay p {
+  font-size: 1.2rem;
+  color: #ccc;
+}
+
+/* Content Layout */
+.exercises-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+  padding: 60px 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Filter Section */
+.filter-section {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+/* Filter Button in Sidebar */
+.filter-btn-sidebar {
+  flex: 1;
+  background-color: #fff;
+  color: #000;
+  border: none;
+  padding: 15px 20px;
+  font-weight: 900;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  max-width: 300px;
+}
+
+.filter-btn-sidebar:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+/* Routine Sidebar */
+.routine-sidebar {
+  background-color: #0a0a0a;
+  border: 2px solid #4caf50;
+  padding: 0;
+  height: fit-content;
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+  max-width: 300px;
+}
+
+.routine-sidebar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.routine-sidebar::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+.routine-sidebar::-webkit-scrollbar-thumb {
+  background: #4caf50;
+  border-radius: 4px;
+}
+
+.routine-sidebar::-webkit-scrollbar-thumb:hover {
+  background: #5bc45f;
+}
+
+.empty-routine-sidebar {
+  padding: 40px 20px;
+  text-align: center;
+  color: #666;
+  font-style: italic;
+}
+
+/* Filters Modal */
+.filters-modal {
+  max-width: 500px !important;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-filters {
+  padding: 20px;
+}
+
+.modal-filters .filter-group {
+  margin-bottom: 20px;
+}
+
+.modal-filters .filter-group label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.9rem;
+}
+
+.modal-filters .filter-group input,
+.modal-filters .filter-group select {
+  width: 100%;
+  padding: 12px;
+  background-color: #1a1a1a;
+  border: 2px solid #333;
+  color: #fff;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.modal-filters .filter-group input:focus,
+.modal-filters .filter-group select:focus {
+  outline: none;
+  border-color: #fff;
+}
+
+.modal-filters .filter-group input::placeholder {
+  color: #666;
+}
+
+.filter-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+.filter-group input,
+.filter-group select {
+  width: 100%;
+  padding: 12px;
+  background-color: #1a1a1a;
+  border: 2px solid #333;
+  color: #fff;
+  font-size: 0.9rem;
+  transition: border-color 0.3s ease;
+}
+
+.filter-group input:focus,
+.filter-group select:focus {
+  outline: none;
+  border-color: #fff;
+}
+
+.search-btn {
+  width: 100%;
+  padding: 15px;
+  background-color: #fff;
+  color: #000;
+  border: 3px solid #fff;
+  font-weight: 900;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.search-btn:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+/* My Routine Box */
+.my-routine-box {
+  background-color: #0a0a0a;
+  border: none;
+  overflow: visible;
+}
+
+.routine-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: #1a1a1a;
+  border-bottom: 1px solid #4caf50;
+}
+
+.routine-header h3 {
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: #4caf50;
+  margin: 0;
+}
+
+.clear-routine-btn {
+  background: none;
+  border: 1px solid #ff4444;
+  color: #ff4444;
+  padding: 5px 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.clear-routine-btn:hover {
+  background-color: #ff4444;
+  color: #fff;
+}
+
+.routine-list {
+  padding: 10px;
+  max-height: 500px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.routine-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.routine-list::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+.routine-list::-webkit-scrollbar-thumb {
+  background: #4caf50;
+  border-radius: 4px;
+}
+
+.routine-list::-webkit-scrollbar-thumb:hover {
+  background: #5bc45f;
+}
+
+.routine-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 12px;
+  margin-bottom: 8px;
+  background-color: #1a1a1a;
+  border: 1px solid #333;
+  border-left: 4px solid #4caf50;
+  transition: all 0.2s ease;
+}
+
+.routine-item:hover {
+  background-color: #252525;
+  border-left-color: #5bc45f;
+}
+
+.routine-item-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.routine-item-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.3;
+}
+
+.routine-item-muscle {
+  font-size: 0.75rem;
+  color: #4caf50;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.remove-btn {
+  background: none;
+  border: none;
+  color: #ff4444;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0 8px;
+  line-height: 1;
+  transition: all 0.2s ease;
+  margin-left: 10px;
+}
+
+.remove-btn:hover {
+  color: #ff6666;
+  transform: scale(1.2);
+}
+
+.routine-footer {
+  padding: 12px 20px;
+  background-color: #1a1a1a;
+  border-top: 1px solid #333;
+  text-align: center;
+}
+
+.routine-count {
+  font-size: 0.85rem;
+  color: #888;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.empty-routine {
+  padding: 30px 20px;
+  text-align: center;
+  color: #666;
+  font-style: italic;
+}
+
+/* Main Content */
+.exercises-main {
+  display: flex;
+  flex-direction: column;
+}
+
+.exercises-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 25px;
+}
+
+.exercise-card {
+  background-color: #0a0a0a;
+  border: 2px solid #222;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.exercise-card:hover {
+  border-color: #fff;
+  transform: translateY(-5px);
+}
+
+.exercise-preview {
+  height: 200px;
+  background-color: #1a1a1a;
+  overflow: hidden;
+}
+
+.exercise-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.no-image {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+  color: #666;
+  font-weight: bold;
+}
+
+.exercise-info {
+  padding: 20px;
+}
+
+.exercise-info h3 {
+  font-size: 1.1rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.exercise-meta {
+  margin-bottom: 15px;
+}
+
+.meta-item {
+  padding: 10px 0;
+  border-bottom: 1px solid #222;
+  font-size: 0.85rem;
+}
+
+.meta-label {
+  font-weight: bold;
+  color: #fff;
+}
+
+.meta-item span:last-child {
+  color: #ccc;
+  display: block;
+  margin-top: 5px;
+}
+
+.view-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #fff;
+  color: #000;
+  border: 2px solid #fff;
+  font-weight: 900;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.view-btn:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+/* Loading & No Results */
+.loading,
+.no-results {
+  grid-column: 1 / -1;
+  padding: 80px 20px;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #ccc;
+}
+
+/* Exercise Modal */
+.exercise-modal {
+  max-width: 700px;
+}
+
+.modal-header {
+  border-bottom: 2px solid #333;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.modal-header h2 {
+  font-size: 2.2rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.modal-exercise-image {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  margin-bottom: 30px;
+  border: 2px solid #333;
+}
+
+.modal-details {
+  margin-bottom: 30px;
+}
+
+.detail-section {
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #222;
+}
+
+.detail-section h4 {
+  font-size: 1.1rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+
+.detail-section p {
+  color: #ccc;
+  line-height: 1.6;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tag {
+  background-color: #222;
+  color: #fff;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  border: 1px solid #333;
+}
+
+.equipment-tag {
+  background-color: #1a3a1a;
+  border-color: #0f0;
+  color: #0f0;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 15px;
+}
+
+.add-to-routine-btn,
+.close-btn {
+  flex: 1;
+  padding: 15px;
+  border: 3px solid #fff;
+  font-weight: 900;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.add-to-routine-btn {
+  background-color: #fff;
+  color: #000;
+}
+
+.add-to-routine-btn:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+.close-btn {
+  background-color: transparent;
+  color: #fff;
+}
+
+.close-btn:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+/* Responsive Design */
+@media (max-width: 968px) {
+  .filter-section {
+    flex-direction: column;
+  }
+
+  .filter-btn-sidebar {
+    max-width: 100%;
+  }
+
+  .routine-sidebar {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .exercises-hero-overlay h1 {
+    font-size: 2rem;
+  }
+
+  .exercises-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-exercise-image {
+    height: 250px;
+  }
+
+  .filters-modal {
+    max-width: 95% !important;
+  }
+}

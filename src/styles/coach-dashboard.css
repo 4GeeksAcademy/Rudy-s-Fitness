@@ -1,0 +1,548 @@
+/* Coach Dashboard Styles */
+
+.coach-container {
+  background-color: #000;
+  color: #fff;
+  min-height: 100vh;
+}
+
+/* Hero Section */
+.coach-hero {
+  height: 300px;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=1200")
+      center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.coach-hero-overlay {
+  text-align: center;
+}
+
+.coach-hero h1 {
+  font-size: 3rem;
+  font-weight: 900;
+  letter-spacing: 4px;
+  margin-bottom: 10px;
+}
+
+.coach-hero p {
+  font-size: 1.2rem;
+  color: #ccc;
+}
+
+/* Content Wrapper */
+.coach-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+/* Tabs Navigation */
+.coach-tabs {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 40px;
+  border-bottom: 3px solid #333;
+}
+
+.tab-btn {
+  padding: 18px 30px;
+  background-color: transparent;
+  color: #ccc;
+  border: none;
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.tab-btn:hover {
+  color: #fff;
+}
+
+.tab-btn.active {
+  color: #fff;
+}
+
+.tab-btn.active::after {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: #fff;
+}
+
+/* Content Area */
+.coach-content-area {
+  background-color: #0a0a0a;
+  border: 2px solid #222;
+  padding: 40px;
+}
+
+/* Clients Section */
+.clients-section h2,
+.create-routine-section h2,
+.my-routines-section h2 {
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: 3px;
+  margin-bottom: 30px;
+}
+
+.clients-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.client-card {
+  background-color: #000;
+  border: 2px solid #222;
+  padding: 30px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.client-card:hover {
+  border-color: #fff;
+  transform: translateY(-5px);
+}
+
+.client-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #fff;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 900;
+  margin: 0 auto 20px;
+  border: 3px solid #fff;
+}
+
+.client-card h3 {
+  font-size: 1.3rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.client-email {
+  color: #ccc;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+}
+
+.client-membership {
+  margin-bottom: 20px;
+}
+
+.membership-badge {
+  background-color: #222;
+  color: #fff;
+  padding: 8px 15px;
+  border-radius: 5px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.client-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.action-btn {
+  padding: 12px;
+  background-color: #fff;
+  color: #000;
+  border: 2px solid #fff;
+  font-weight: 900;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.action-btn:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+.action-btn.danger {
+  background-color: #8b0000;
+  border-color: #ff4444;
+}
+
+.action-btn.danger:hover {
+  background-color: #ff4444;
+  color: #fff;
+}
+
+/* Create Routine Section */
+.routine-form {
+  background-color: #000;
+  border: 2px solid #222;
+  padding: 30px;
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  letter-spacing: 1px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 15px;
+  background-color: #1a1a1a;
+  border: 2px solid #333;
+  color: #fff;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #fff;
+}
+
+.search-results {
+  background-color: #1a1a1a;
+  border: 2px solid #333;
+  margin-top: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.search-result-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #333;
+}
+
+.search-result-item:last-child {
+  border-bottom: none;
+}
+
+.result-info {
+  flex: 1;
+}
+
+.result-name {
+  font-weight: bold;
+  margin: 0;
+}
+
+.add-btn {
+  padding: 8px 15px;
+  background-color: #0f0;
+  color: #000;
+  border: 2px solid #0f0;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.add-btn:hover {
+  background-color: #000;
+  color: #0f0;
+}
+
+/* Selected Exercises */
+.selected-exercises {
+  background-color: #000;
+  border: 3px solid #0f0;
+  padding: 30px;
+  margin: 30px 0;
+}
+
+.selected-exercises h3 {
+  font-size: 1.3rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  margin-bottom: 25px;
+  color: #0f0;
+}
+
+.exercises-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.routine-exercise-item {
+  display: grid;
+  grid-template-columns: 50px 1fr auto;
+  gap: 20px;
+  align-items: flex-start;
+  background-color: #0a0a0a;
+  border: 2px solid #333;
+  padding: 20px;
+  position: relative;
+}
+
+.exercise-number {
+  width: 50px;
+  height: 50px;
+  background-color: #0f0;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 1.2rem;
+  border-radius: 50%;
+}
+
+.exercise-details h4 {
+  font-size: 1.1rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+  margin-bottom: 15px;
+}
+
+.exercise-controls {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.control-group label {
+  font-size: 0.85rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.control-group input {
+  padding: 8px;
+  background-color: #1a1a1a;
+  border: 1px solid #333;
+  color: #fff;
+}
+
+.exercise-details textarea {
+  width: 100%;
+  padding: 10px;
+  background-color: #1a1a1a;
+  border: 1px solid #333;
+  color: #ccc;
+  min-height: 60px;
+  font-size: 0.9rem;
+}
+
+.remove-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
+  color: #ff4444;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 5px 10px;
+  transition: color 0.3s ease;
+}
+
+.remove-btn:hover {
+  color: #ff0000;
+}
+
+/* Form Actions */
+.form-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.save-btn,
+.cancel-btn {
+  flex: 1;
+  padding: 18px;
+  border: 3px solid #fff;
+  font-weight: 900;
+  letter-spacing: 3px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.save-btn {
+  background-color: #fff;
+  color: #000;
+}
+
+.save-btn:hover {
+  background-color: #0f0;
+  border-color: #0f0;
+}
+
+.cancel-btn {
+  background-color: transparent;
+  color: #fff;
+}
+
+.cancel-btn:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+/* My Routines Section */
+.routines-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 25px;
+}
+
+.routine-card {
+  background-color: #000;
+  border: 2px solid #222;
+  padding: 25px;
+  transition: all 0.3s ease;
+}
+
+.routine-card:hover {
+  border-color: #fff;
+  transform: translateY(-5px);
+}
+
+.routine-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  gap: 15px;
+}
+
+.routine-header h3 {
+  font-size: 1.3rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+  margin: 0;
+  flex: 1;
+}
+
+.status-badge {
+  padding: 6px 15px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.status-badge.active {
+  background-color: #0a3d0a;
+  color: #0f0;
+}
+
+.routine-card p {
+  margin: 12px 0;
+  padding: 10px 0;
+  border-bottom: 1px solid #222;
+  font-size: 0.95rem;
+}
+
+.routine-card p:last-of-type {
+  border-bottom: none;
+}
+
+.routine-card strong {
+  color: #fff;
+}
+
+.routine-client,
+.routine-exercises,
+.routine-date {
+  color: #ccc;
+}
+
+.routine-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.routine-actions .action-btn {
+  flex: 1;
+  padding: 10px;
+  font-size: 0.85rem;
+}
+
+.no-routines {
+  text-align: center;
+  padding: 60px 20px;
+  color: #ccc;
+  font-size: 1.1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .coach-tabs {
+    flex-wrap: wrap;
+  }
+
+  .tab-btn {
+    padding: 12px 20px;
+    font-size: 0.9rem;
+  }
+
+  .coach-content-area {
+    padding: 20px;
+  }
+
+  .clients-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .exercise-controls {
+    grid-template-columns: 1fr;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .routine-card {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .coach-hero h1 {
+    font-size: 2rem;
+  }
+
+  .routine-exercise-item {
+    grid-template-columns: 1fr;
+  }
+}

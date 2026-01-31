@@ -1,123 +1,86 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { useAuth } from "../hooks/AuthContext";
+import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
+import "../../styles/auth.css";
 
-const Login = () => {
-    const { login } = useAuth();
-    const navigate = useNavigate();
-    const [username, setUsername] = useState("");
+export const Login = () => {
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [role, setRole] = useState("customer"); // customer | coach
-    const [error, setError] = useState("");
-    const [searchParams, setSearchParams] = useSearchParams();
-
-    // Initialize role from query string, e.g., /login?coach=true
-    useEffect(() => {
-        const coachMode = searchParams.get("coach");
-        if (coachMode === "true") setRole("coach");
-    }, [searchParams]);
+    const [userType, setUserType] = useState("customer"); // customer or coach
+    const { dispatch } = useGlobalReducer();
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError("");
-        if (!username || !password) {
-            setError("Please enter username and password.");
-            return;
-        }
-        try {
-            const BACKEND_URL = import.meta.env.VITE_BACKEND_URL?.trim().replace(/\/$/, "");
-            const API_BASE = `${BACKEND_URL}/api`;
-            // Usamos /api/customer-login y /api/user-login (no existe coach-login real aún)
-            const endpoint = role === "coach" ? "/user-login" : "/customer-login";
-            const resp = await fetch(`${API_BASE}${endpoint}`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email: username, password })
-            });
-            const data = await resp.json();
-            if (resp.ok && data.access_token) {
-                login({ type: role, membership: role === "coach" ? null : "basic", token: data.access_token });
-                navigate("/");
-            } else {
-                setError(data.msg || `Login failed (status ${resp.status}).`);
-            }
-        } catch (err) {
-            setError("Network error. Please try again.");
-        }
+
+        // TODO: Implement actual backend authentication
+        // For now, simulate login
+        const userData = {
+            id: 1,
+            email: email,
+            userType: userType,
+            membershipLevel: userType === "customer" ? "basic" : null
+        };
+
+        dispatch({ type: 'login', payload: userData });
+        navigate('/');
     };
 
     return (
-        <div className="container py-4" style={{ maxWidth: 500 }}>
-            <h2 className="text-light">Login</h2>
-            <p className="text-secondary">Enter your credentials or register.</p>
-            <form onSubmit={handleSubmit} className="mt-3">
-                <div className="mb-3">
-                    <label className="form-label text-light">Username</label>
-                    <input
-                        type="text"
-                        className="form-control bg-dark text-light border-secondary"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        placeholder="your@email.com"
-                    />
-                </div>
-                <div className="mb-3">
-                    <label className="form-label text-light">Password</label>
-                    <input
-                        type="password"
-                        className="form-control bg-dark text-light border-secondary"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder="••••••••"
-                    />
-                </div>
-                <div className="mb-3">
-                    <label className="form-label text-light">Role</label>
-                    <select
-                        className="form-select bg-dark text-light border-secondary"
-                        value={role}
-                        onChange={(e) => setRole(e.target.value)}
-                    >
-                        <option value="customer">Customer</option>
-                        <option value="coach">Coach</option>
-                    </select>
-                </div>
-                {error && <div className="alert alert-warning py-2">{error}</div>}
-                <button type="submit" className="btn btn-outline-light w-100">
-                    <i className="fas fa-sign-in-alt me-2" /> Login
-                </button>
-            </form>
+        <div className="auth-container">
+            <div className="auth-box">
+                <h1 className="auth-title">SIGN IN</h1>
+                <p className="auth-subtitle">Welcome back to Rudy's Fitness</p>
 
-            <div className="mt-3 d-flex justify-content-between align-items-center">
-                <a href="/registration" className="btn btn-link text-decoration-none">Register</a>
-                {role === "coach" ? (
+                <div className="user-type-selector">
                     <button
-                        type="button"
-                        className="btn btn-sm btn-outline-info"
-                        onClick={() => {
-                            setRole("customer");
-                            searchParams.delete("coach");
-                            setSearchParams(searchParams);
-                        }}
+                        className={`type-btn ${userType === 'customer' ? 'active' : ''}`}
+                        onClick={() => setUserType('customer')}
                     >
-                        Customer Login
+                        Customer
                     </button>
-                ) : (
                     <button
-                        type="button"
-                        className="btn btn-sm btn-outline-info"
-                        onClick={() => {
-                            setRole("coach");
-                            searchParams.set("coach", "true");
-                            setSearchParams(searchParams);
-                        }}
+                        className={`type-btn ${userType === 'coach' ? 'active' : ''}`}
+                        onClick={() => setUserType('coach')}
                     >
-                        Coach Login
+                        Coach
                     </button>
-                )}
+                </div>
+
+                <form onSubmit={handleSubmit} className="auth-form">
+                    <div className="form-group">
+                        <label htmlFor="email">Email Address</label>
+                        <input
+                            type="email"
+                            id="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="Enter your email"
+                            required
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="password">Password</label>
+                        <input
+                            type="password"
+                            id="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            placeholder="Enter your password"
+                            required
+                        />
+                    </div>
+
+                    <button type="submit" className="auth-btn">
+                        SIGN IN
+                    </button>
+                </form>
+
+                <div className="auth-footer">
+                    <p>Don't have an account? <Link to="/registration">Register here</Link></p>
+                </div>
             </div>
         </div>
     );
 };
-
-export default Login;

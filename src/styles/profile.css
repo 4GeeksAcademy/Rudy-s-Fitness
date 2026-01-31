@@ -1,0 +1,729 @@
+/* Profile Page Styles */
+
+.profile-container {
+  background-color: #000;
+  color: #fff;
+  min-height: 100vh;
+}
+
+/* Hero Section */
+.profile-hero {
+  height: 300px;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("https://images.unsplash.com/photo-1524678606370-a47ad25cb82a?w=1200")
+      center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-hero-overlay {
+  text-align: center;
+}
+
+.profile-hero-overlay h1 {
+  font-size: 3rem;
+  font-weight: 900;
+  letter-spacing: 4px;
+  margin-bottom: 10px;
+}
+
+.profile-hero-overlay p {
+  font-size: 1.2rem;
+  color: #ccc;
+}
+
+/* Access Denied */
+.access-denied {
+  text-align: center;
+  padding: 100px 20px;
+}
+
+.access-denied h2 {
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  margin-bottom: 15px;
+}
+
+.access-denied p {
+  font-size: 1.1rem;
+  color: #ccc;
+}
+
+/* Content */
+.profile-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 60px 20px;
+}
+
+.profile-wrapper {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 40px;
+}
+
+/* Sidebar */
+.profile-sidebar {
+  background-color: #0a0a0a;
+  border: 2px solid #222;
+  padding: 30px;
+  height: fit-content;
+  position: sticky;
+  top: 20px;
+}
+
+.user-card {
+  text-align: center;
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+  border-bottom: 2px solid #222;
+}
+
+.user-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #fff;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 900;
+  border: 3px solid #fff;
+  margin: 0 auto 20px;
+}
+
+.user-card h3 {
+  font-size: 1.3rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+  margin: 0 0 8px 0;
+}
+
+.user-email {
+  color: #ccc;
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+}
+
+.membership-badge {
+  display: inline-block;
+  background-color: #0f0;
+  color: #000;
+  padding: 8px 15px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+/* Profile Navigation */
+.profile-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.nav-btn {
+  padding: 15px;
+  background-color: transparent;
+  color: #ccc;
+  border: 2px solid #333;
+  font-weight: bold;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+  font-size: 0.95rem;
+}
+
+.nav-btn:hover {
+  border-color: #fff;
+  color: #fff;
+}
+
+.nav-btn.active {
+  background-color: #fff;
+  color: #000;
+  border-color: #fff;
+}
+
+/* Main Content */
+.profile-main {
+  background-color: #0a0a0a;
+  border: 2px solid #222;
+  padding: 40px;
+}
+
+.tab-content {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Section Header */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #333;
+}
+
+.section-header h2 {
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.edit-btn {
+  padding: 10px 25px;
+  background-color: #fff;
+  color: #000;
+  border: 2px solid #fff;
+  font-weight: 900;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.edit-btn:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+/* Account Form */
+.account-form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 15px;
+  background-color: #000;
+  border: 2px solid #333;
+  color: #fff;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:disabled,
+.form-group select:disabled {
+  background-color: #0a0a0a;
+  color: #999;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #fff;
+}
+
+.form-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.save-btn,
+.cancel-btn {
+  flex: 1;
+  padding: 15px;
+  border: 3px solid #fff;
+  font-weight: 900;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.save-btn {
+  background-color: #0f0;
+  color: #000;
+  border-color: #0f0;
+}
+
+.save-btn:hover {
+  background-color: #000;
+  color: #0f0;
+}
+
+.cancel-btn {
+  background-color: transparent;
+  color: #fff;
+}
+
+.cancel-btn:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+/* Membership Section */
+.current-membership-card {
+  background-color: #000;
+  border: 3px solid #0f0;
+  padding: 30px;
+  margin-bottom: 40px;
+  border-radius: 4px;
+}
+
+.membership-info h3 {
+  font-size: 1.3rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  margin-bottom: 15px;
+}
+
+.membership-level {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #0f0;
+  margin-bottom: 15px;
+}
+
+.membership-details,
+.membership-renewal {
+  color: #ccc;
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+}
+
+/* Membership Options */
+.membership-options {
+  margin-bottom: 40px;
+}
+
+.membership-options h3 {
+  font-size: 1.3rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  margin-bottom: 25px;
+}
+
+.membership-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.membership-option {
+  background-color: #000;
+  border: 2px solid #333;
+  padding: 25px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.membership-option:hover {
+  border-color: #fff;
+}
+
+.membership-option.current {
+  border-color: #0f0;
+  background-color: #0a1a0a;
+}
+
+.membership-option h4 {
+  font-size: 1.2rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.membership-option .price {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #0f0;
+  margin-bottom: 20px;
+}
+
+.current-btn,
+.upgrade-option-btn {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #fff;
+  font-weight: 900;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.current-btn {
+  background-color: #0f0;
+  color: #000;
+  border-color: #0f0;
+}
+
+.current-btn:hover {
+  background-color: #000;
+  color: #0f0;
+}
+
+.upgrade-option-btn {
+  background-color: #fff;
+  color: #000;
+}
+
+.upgrade-option-btn:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+/* Billing Section */
+.billing-section {
+  margin-top: 40px;
+}
+
+.billing-section h3 {
+  font-size: 1.3rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+.billing-table {
+  border: 2px solid #333;
+  overflow: hidden;
+}
+
+.table-header,
+.table-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+}
+
+.table-header {
+  background-color: #1a1a1a;
+  border-bottom: 2px solid #333;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.table-col {
+  padding: 15px;
+  border-right: 1px solid #333;
+}
+
+.table-col:last-child {
+  border-right: none;
+}
+
+.table-header .table-col {
+  background-color: #0a0a0a;
+}
+
+.table-row {
+  border-bottom: 1px solid #333;
+  transition: background-color 0.3s ease;
+}
+
+.table-row:hover {
+  background-color: #0a0a0a;
+}
+
+.status-paid {
+  color: #0f0;
+  font-weight: bold;
+}
+
+/* Preferences */
+.preferences-section {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+.preference-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #000;
+  border: 2px solid #333;
+  padding: 25px;
+  transition: border-color 0.3s ease;
+}
+
+.preference-item:hover {
+  border-color: #fff;
+}
+
+.preference-info h3 {
+  font-size: 1.1rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.preference-info p {
+  color: #ccc;
+  font-size: 0.9rem;
+}
+
+/* Toggle Switch */
+.toggle-switch {
+  position: relative;
+  width: 60px;
+  height: 30px;
+}
+
+.toggle-switch input {
+  display: none;
+}
+
+.toggle-switch label {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: #333;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  position: relative;
+}
+
+.toggle-switch label::after {
+  content: "";
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  background-color: #fff;
+  border-radius: 50%;
+  top: 2px;
+  left: 2px;
+  transition: left 0.3s ease;
+}
+
+.toggle-switch input:checked + label {
+  background-color: #0f0;
+}
+
+.toggle-switch input:checked + label::after {
+  left: 32px;
+}
+
+/* Danger Zone */
+.danger-zone {
+  background-color: #1a0000;
+  border: 2px solid #8b0000;
+  padding: 25px;
+  margin-top: 40px;
+}
+
+.danger-zone h3 {
+  font-size: 1.3rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: #ff4444;
+  margin-bottom: 20px;
+}
+
+.delete-account-btn {
+  padding: 15px 30px;
+  background-color: #8b0000;
+  color: #fff;
+  border: 2px solid #ff4444;
+  font-weight: 900;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.delete-account-btn:hover {
+  background-color: #ff4444;
+  color: #fff;
+}
+
+/* Stats */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+.stat-card {
+  background-color: #000;
+  border: 2px solid #333;
+  padding: 30px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  border-color: #fff;
+}
+
+.stat-card h3 {
+  font-size: 0.95rem;
+  color: #ccc;
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #0f0;
+}
+
+.stat-subtitle {
+  color: #999;
+  font-size: 0.8rem;
+  margin-top: 5px;
+}
+
+/* Activity List */
+.activity-section h3 {
+  font-size: 1.3rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  margin-bottom: 25px;
+}
+
+.activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.activity-item {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  background-color: #000;
+  border: 2px solid #333;
+  align-items: center;
+  transition: border-color 0.3s ease;
+}
+
+.activity-item:hover {
+  border-color: #fff;
+}
+
+.activity-date {
+  background-color: #0f0;
+  color: #000;
+  padding: 8px 15px;
+  border-radius: 4px;
+  font-weight: bold;
+  min-width: 100px;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.activity-text {
+  flex: 1;
+  color: #ccc;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .profile-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-sidebar {
+    position: relative;
+    top: 0;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .membership-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-hero-overlay h1 {
+    font-size: 2rem;
+  }
+
+  .profile-main {
+    padding: 20px;
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .preference-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .table-header,
+  .table-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-hero-overlay h1 {
+    font-size: 1.8rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .membership-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .user-card {
+    text-align: center;
+  }
+}
